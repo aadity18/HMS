@@ -1,0 +1,131 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-primary fw-bold">Reservations</h2>
+
+  <!-- Search bar -->
+  <div class="d-flex justify-content-end align-items-center mb-3">
+    <div class="d-flex">
+      <input
+        type="text"
+        class="form-control me-2"
+        placeholder="Enter Reservation Code"
+        [(ngModel)]="searchCode"
+        style="max-width: 200px"
+      />
+      <button
+        class="btn btn-primary"
+        (click)="getReservationByCode()"
+      >
+        <i class="bi bi-search me-1"></i>Search
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info text-center">
+    <div class="spinner-border text-primary me-2"></div>
+    Loading reservations...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+  <div class="table-responsive shadow-sm rounded-4" *ngIf="!loading">
+    <table class="table table-hover align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Code</th>
+          <th scope="col">Room Code</th>
+          <th scope="col">Guest Code</th>
+          <th scope="col">Check-In</th>
+          <th scope="col">Check-Out</th>
+          <th scope="col">Status</th>
+          <th scope="col">Total Price</th>
+          <th *ngIf="currentUserRole !== 'OWNER'" scope="col" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+          <td>{{ reservation.id }}</td>
+          <td class="fw-semibold">{{ reservation.code }}</td>
+          <td>{{ reservation.roomCode }}</td>
+          <td>{{ reservation.guestCode }}</td>
+          <td>{{ reservation.checkInDate | date : 'mediumDate' }}</td>
+          <td>{{ reservation.checkOutDate | date : 'mediumDate' }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-primary': reservation.status === 'CONFIRMED',
+                'bg-warning text-dark': reservation.status === 'PENDING',
+                'bg-danger': reservation.status === 'CANCELLED',
+                'bg-secondary': reservation.status === 'EXPIRED',
+                'bg-success': reservation.status === 'BOOKED'
+              }"
+            >
+              {{ reservation.status }}
+            </span>
+          </td>
+          <td>
+            <span class="fw-semibold text-success">
+              {{ reservation.totalPrice | currency : 'INR' : 'symbol' }}
+            </span>
+          </td>
+
+          <td *ngIf="currentUserRole !== 'OWNER'" class="text-center">
+            <!-- PENDING: show Pay Now. Timer appears only after first Pay Now click (window starts). -->
+            <ng-container *ngIf="reservation.status === 'PENDING'">
+              <p *ngIf="isDeadlineActive(reservation.id)" class="small text-muted mb-1">
+                Payment expires in: {{ getTimerText(reservation.id) }}
+              </p>
+              <button
+                class="btn btn-sm btn-success me-2"
+                (click)="completePayment(reservation.id!)"
+                title="Complete Payment"
+              >
+                <i class="bi bi-credit-card me-1"></i>Pay Now
+              </button>
+            </ng-container>
+
+            <!-- CANCELLED: allow Retry while SAME timer is still active -->
+            <ng-container *ngIf="reservation.status === 'CANCELLED'">
+              <p *ngIf="isDeadlineActive(reservation.id)" class="small text-muted mb-1">
+                Payment expires in: {{ getTimerText(reservation.id) }}
+              </p>
+              <button
+                *ngIf="isDeadlineActive(reservation.id)"
+                class="btn btn-sm btn-warning me-2"
+                (click)="retryPayment(reservation.id!)"
+                title="Retry Payment"
+              >
+                <i class="bi bi-arrow-clockwise me-1"></i>Retry Payment
+              </button>
+            </ng-container>
+
+            <!-- BOOKED: show success message -->
+            <span
+              *ngIf="reservation.status === 'BOOKED'"
+              class="text-success d-block mb-2 fw-semibold"
+              style="font-size: 0.85rem"
+              title="Payment successful"
+            >
+              Payment completed successfully
+            </span>
+
+            <!-- EXPIRED: show closed message -->
+            <span
+              *ngIf="reservation.status === 'EXPIRED'"
+              class="text-muted d-block mb-2"
+              style="font-size: 0.85rem"
+              title="Payment window closed"
+            >
+              Payment window closed
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && !reservations.length" class="alert alert-warning mt-3 text-center rounded-4 shadow-sm">
+    <i class="bi bi-exclamation-circle me-2"></i>No reservations found.
+  </div>
+</div>

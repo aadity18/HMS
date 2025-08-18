@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-3">
+  <div class="container-fluid px-4">
+    <!-- Left: Logo -->
+    <a class="navbar-brand d-flex align-items-center gap-2 me-4" routerLink="/" style="padding-left: 12px;">
+      <span class="logo-circle d-flex align-items-center justify-content-center me-2">
+        <i class="bi bi-building" style="font-size: 1.6rem; color: #1976d2;"></i>
+      </span>
+      <span class="fw-semibold fs-5">Hotel Management</span>
+    </a>
+
+    <!-- Center: Nav Links -->
+    <div class="flex-grow-1">
+      <ul class="navbar-nav justify-content-center d-flex gap-3 mb-2 mb-lg-0">
+        <ng-container *ngIf="authService.isLoggedIn(); else guestLinks">
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="navClass('/dashboard')" (click)="navigateTo('/dashboard')">
+              <i class="bi bi-speedometer2 me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="navClass('/rooms')" (click)="navigateTo('/rooms')">
+              <i class="bi bi-door-closed me-1"></i>Rooms
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="navClass('/reservations')" (click)="navigateTo('/reservations')">
+              <i class="bi bi-calendar2-check me-1"></i>Reservations
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="navClass('/guests')" (click)="navigateTo('/guests')">
+              <i class="bi bi-people-fill me-1"></i>Guests
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="navClass('/billing')" (click)="navigateTo('/billing')">
+              <i class="bi bi-cash-stack me-1"></i>Billing
+            </a>
+          </li>
+        </ng-container>
+        <ng-template #guestLinks>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/'" [ngClass]="navClass('/')">
+              <i class="bi bi-house-door me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/about'" [ngClass]="navClass('/about')">
+              <i class="bi bi-info-circle me-1"></i>About
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/features'" [ngClass]="navClass('/features')">
+              <i class="bi bi-stars me-1"></i>Features
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/contact'" [ngClass]="navClass('/contact')">
+              <i class="bi bi-envelope me-1"></i>Contact
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+
+    <!-- Right: Auth Buttons -->
+    <div class="d-flex gap-2 ms-4" style="padding-right: 12px;">
+      <ng-container *ngIf="!authService.isLoggedIn(); else loggedIn">
+        <a routerLink="/login" class="btn btn-light btn-lg px-4 fw-semibold" style="font-size: 1.15rem;">Login</a>
+      </ng-container>
+      <ng-template #loggedIn>
+        <button (click)="logout()" class="btn btn-outline-light btn-lg px-4 fw-semibold" style="font-size: 1.15rem;">Logout</button>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+

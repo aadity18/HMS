@@ -1,0 +1,140 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-primary fw-bold">Add New Guest</h2>
+
+  <form [formGroup]="guestForm" (ngSubmit)="onSubmit()" novalidate>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <!-- <div class="mb-3">
+      <label for="memberCode" class="form-label fw-semibold">
+        Member Code <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        id="memberCode"
+        formControlName="memberCode"
+        class="form-control"
+        [class.is-invalid]="guestForm.controls['memberCode'].touched && guestForm.controls['memberCode'].invalid"
+        placeholder="Enter unique member code"
+      />
+      <div *ngIf="guestForm.controls['memberCode'].touched && guestForm.controls['memberCode'].invalid" class="invalid-feedback">
+        <div *ngIf="guestForm.controls['memberCode'].errors?.['required']">Member Code is required.</div>
+        <div *ngIf="guestForm.controls['memberCode'].errors?.['maxlength']">Max length is 20 characters.</div>
+      </div>
+    </div> -->
+
+    <div class="mb-3">
+      <label for="name" class="form-label fw-semibold">
+        Name <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+        [class.is-invalid]="guestForm.controls['name'].touched && guestForm.controls['name'].invalid"
+        placeholder="Enter full name"
+      />
+      <div *ngIf="guestForm.controls['name'].touched && guestForm.controls['name'].invalid" class="invalid-feedback">
+        <div *ngIf="guestForm.controls['name'].errors?.['required']">Name is required.</div>
+        <div *ngIf="guestForm.controls['name'].errors?.['minlength']">Name must be at least 3 characters.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneNo" class="form-label fw-semibold">
+        Phone Number <span class="text-danger">*</span>
+      </label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        class="form-control"
+        placeholder="+91 9876543210"
+      />
+      <div *ngIf="guestForm.controls['phoneNumber'].touched && guestForm.controls['phoneNumber'].invalid" class="invalid-feedback">
+        <div *ngIf="guestForm.controls['phoneNumber'].errors?.['required']">Phone number is required.</div>
+        <div *ngIf="guestForm.controls['phoneNumber'].errors?.['pattern']">Invalid phone number format.</div>
+      </div>
+    </div>
+
+    <!-- <div class="mb-3">
+      <label for="company" class="form-label fw-semibold">
+        Company <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        id="company"
+        formControlName="company"
+        class="form-control"
+        placeholder="Company name"
+        [class.is-invalid]="guestForm.controls['company'].touched && guestForm.controls['company'].invalid"
+      />
+      <div *ngIf="guestForm.controls['company'].touched && guestForm.controls['company'].invalid" class="invalid-feedback">
+        Company is required.
+      </div>
+    </div> -->
+
+    <div class="mb-3">
+      <label for="email" class="form-label fw-semibold">
+        Email <span class="text-danger">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        [class.is-invalid]="guestForm.controls['email'].touched && guestForm.controls['email'].invalid"
+        placeholder="example@mail.com"
+      />
+      <div *ngIf="guestForm.controls['email'].touched && guestForm.controls['email'].invalid" class="invalid-feedback">
+        <div *ngIf="guestForm.controls['email'].errors?.['required']">Email is required.</div>
+        <div *ngIf="guestForm.controls['email'].errors?.['email']">Invalid email address.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">
+        Gender <span class="text-danger">*</span>
+      </label>
+      <select
+        formControlName="gender"
+        class="form-select"
+        [class.is-invalid]="guestForm.controls['gender'].touched && guestForm.controls['gender'].invalid"
+      >
+        <option value="" disabled>Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div *ngIf="guestForm.controls['gender'].touched && guestForm.controls['gender'].invalid" class="invalid-feedback">
+        Gender is required.
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="address" class="form-label fw-semibold">
+        Address <span class="text-danger">*</span>
+      </label>
+      <textarea
+        id="address"
+        formControlName="address"
+        rows="3"
+        class="form-control"
+        placeholder="Guest address"
+        [class.is-invalid]="guestForm.controls['address'].touched && guestForm.controls['address'].invalid"
+      ></textarea>
+      <div *ngIf="guestForm.controls['address'].touched && guestForm.controls['address'].invalid" class="invalid-feedback">
+        <div *ngIf="guestForm.controls['address'].errors?.['required']">Address is required.</div>
+        <div *ngIf="guestForm.controls['address'].errors?.['maxlength']">Max length is 200 characters.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="submitting">
+      {{ submitting ? 'Submitting...' : 'Add Guest' }}
+    </button>
+
+    <button type="button" class="btn btn-secondary ms-2" (click)="goBack()" [disabled]="submitting">
+      Cancel
+    </button>
+  </form>
+</div>

@@ -1,0 +1,141 @@
+<div class="container mt-5">
+  <div
+    class="card shadow-sm border-0 rounded-4 p-4 mx-auto"
+    style="max-width: 540px"
+  >
+    <h2 class="mb-4 text-primary fw-bold text-center">
+      <i class="bi bi-person-plus-fill me-2"></i>Add New Staff
+    </h2>
+
+    <form [formGroup]="staffForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- <div class="mb-3">
+        <label class="form-label">Staff Code</label>
+        <input
+          formControlName="staffCode"
+          class="form-control shadow-sm"
+          placeholder="Leave empty to auto-generate"
+        />
+      </div> -->
+
+      <div class="mb-3">
+        <label class="form-label">Employee Name</label>
+        <input
+          formControlName="name"
+          class="form-control shadow-sm"
+          placeholder="Enter name"
+        />
+        <div
+          *ngIf="submitted && f['name'].errors"
+          class="text-danger small"
+        >
+          <div *ngIf="f['name'].errors['required']">
+            Name is required
+          </div>
+          <div *ngIf="f['name'].errors['minlength']">
+            Minimum 3 characters required
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Address</label>
+        <input
+          formControlName="address"
+          class="form-control shadow-sm"
+          placeholder="Enter address"
+        />
+        <div
+          *ngIf="submitted && f['address'].errors"
+          class="text-danger small"
+        >
+          <div *ngIf="f['address'].errors['required']">
+            Address is required
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">NIC</label>
+        <input
+          formControlName="nic"
+          class="form-control shadow-sm"
+          placeholder="Enter NIC"
+        />
+        <div *ngIf="submitted && f['nic'].errors" class="text-danger small">
+          <div *ngIf="f['nic'].errors['required']">NIC is required</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Salary</label>
+        <input
+          type="number"
+          formControlName="salary"
+          class="form-control shadow-sm"
+          placeholder="Enter salary"
+        />
+        <div *ngIf="submitted && f['salary'].errors" class="text-danger small">
+          <div *ngIf="f['salary'].errors['required']">Salary is required</div>
+          <div *ngIf="f['salary'].errors['min']">Must be a positive number</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input
+          type="number"
+          formControlName="age"
+          class="form-control shadow-sm"
+          placeholder="Enter age"
+        />
+        <div *ngIf="submitted && f['age'].errors" class="text-danger small">
+          <div *ngIf="f['age'].errors['required']">Age is required</div>
+          <div *ngIf="f['age'].errors['min']">Minimum age is 18</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="occupation" class="form-label">Occupation</label>
+        <select
+          id="occupation"
+          class="form-select"
+          formControlName="occupation"
+          [ngClass]="{ 'is-invalid': submitted && f['occupation'].errors }"
+        >
+          <option value="">-- Select Role --</option>
+          <option
+            *ngFor="let role of staffRoles"
+            [value]="role"
+            [disabled]="(role === 'OWNER' || role === 'MANAGER') && currentUserRole !== 'OWNER'"
+          >
+            {{ role }}
+          </option>
+        </select>
+        <div
+          *ngIf="submitted && f['occupation'].errors"
+          class="invalid-feedback"
+        >
+          Occupation is required.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control shadow-sm"
+          placeholder="Enter email"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="text-danger small">
+          <div *ngIf="f['email'].errors['required']">Email is required</div>
+          <div *ngIf="f['email'].errors['email']">Valid email required</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+        <i class="bi bi-person-plus me-1"></i>Create Staff
+      </button>
+    </form>
+  </div>
+</div>

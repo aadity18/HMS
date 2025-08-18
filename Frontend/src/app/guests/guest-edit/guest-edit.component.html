@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-success fw-bold">Edit Guest</h2>
+
+  <form [formGroup]="guestForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <!-- Name -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" formControlName="name"
+        [class.is-invalid]="guestForm.get('name')?.touched && guestForm.get('name')?.invalid" />
+      <div class="invalid-feedback" *ngIf="guestForm.get('name')?.errors?.['required']">Name is required.</div>
+      <div class="invalid-feedback" *ngIf="guestForm.get('name')?.errors?.['minlength']">Minimum 3 characters.</div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+      <input type="tel" class="form-control" formControlName="phoneNumber"
+        [class.is-invalid]="guestForm.get('phoneNo')?.touched && guestForm.get('phoneNo')?.invalid" />
+      <div class="invalid-feedback" *ngIf="guestForm.get('phoneNo')?.errors?.['required']">Phone number is required.</div>
+      <div class="invalid-feedback" *ngIf="guestForm.get('phoneNo')?.errors?.['pattern']">Invalid phone format.</div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+      <input type="email" class="form-control" formControlName="email"
+        [class.is-invalid]="guestForm.get('email')?.touched && guestForm.get('email')?.invalid" />
+      <div class="invalid-feedback" *ngIf="guestForm.get('email')?.errors?.['required']">Email is required.</div>
+      <div class="invalid-feedback" *ngIf="guestForm.get('email')?.errors?.['email']">Invalid email.</div>
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Gender <span class="text-danger">*</span></label>
+      <select class="form-select" formControlName="gender"
+        [class.is-invalid]="guestForm.get('gender')?.touched && guestForm.get('gender')?.invalid">
+        <option value="" disabled>Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="guestForm.get('gender')?.errors?.['required']">Gender is required.</div>
+    </div>
+
+    <!-- Address -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+      <textarea class="form-control" rows="3" formControlName="address"
+        [class.is-invalid]="guestForm.get('address')?.touched && guestForm.get('address')?.invalid"></textarea>
+      <div class="invalid-feedback" *ngIf="guestForm.get('address')?.errors?.['required']">Address is required.</div>
+      <div class="invalid-feedback" *ngIf="guestForm.get('address')?.errors?.['maxlength']">Max 200 characters.</div>
+    </div>
+
+    <!-- Buttons -->
+    <button type="submit" class="btn btn-success" [disabled]="submitting">
+      {{ submitting ? 'Updating...' : 'Update Guest' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="goBack()" [disabled]="submitting">
+      Cancel
+    </button>
+  </form>
+</div>

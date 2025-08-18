@@ -1,0 +1,128 @@
+<div class="container my-4">
+  <div class="card shadow-sm border-0 rounded-4 p-4 mb-4 bg-white">
+    <div class="d-flex align-items-center mb-3">
+      <div class="icon-circle me-3" style="background: #e3f2fd;">
+        <i class="bi bi-door-closed" style="color: #1976d2; font-size: 2rem;"></i>
+      </div>
+      <div class="flex-grow-1">
+        <h2 class="mb-0 fw-bold text-start" style="color: #1a237e;">Available Rooms</h2>
+        <div class="text-muted text-start" style="font-size: 1rem;">Find rooms for your selected dates</div>
+      </div>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label for="checkInDate" class="form-label">Check-in Date</label>
+        <input type="date" id="checkInDate" class="form-control shadow-sm" [(ngModel)]="checkInDate" [min]="today" />
+      </div>
+      <div class="col-md-4">
+        <label for="checkOutDate" class="form-label">Check-out Date</label>
+        <input type="date" id="checkOutDate" class="form-control shadow-sm" [(ngModel)]="checkOutDate" [min]="today" />
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary w-100 shadow-sm" (click)="fetchAvailableRooms()">
+          <i class="bi bi-search me-1"></i>Search
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!checkInDate || !checkOutDate" class="alert alert-info rounded-4 shadow-sm">
+      <i class="bi bi-info-circle me-2"></i>
+      Please select dates to view available rooms.
+    </div>
+
+    <div *ngIf="checkInDate && checkOutDate">
+      <div *ngIf="loading" class="alert alert-info rounded-4 shadow-sm">Loading available rooms...</div>
+      <div *ngIf="error" class="alert alert-danger rounded-4 shadow-sm">{{ error }}</div>
+
+      <div *ngIf="rooms.length > 0" class="row g-4 mt-2">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let room of rooms">
+          <div class="room-card card h-100 border-0 shadow-sm rounded-4">
+            <div class="card-body pb-2">
+              <div class="d-flex align-items-center mb-2">
+                <div class="room-number-circle me-3">
+                  <span class="fw-bold" style="color:#1976d2;">{{ room.code }}</span>
+                </div>
+                <div>
+                  <div class="fw-semibold" style="font-size: 1.1rem;">{{ room.roomType }}</div>
+                  <div class="text-muted small">Capacity: {{ room.capacity }}</div>
+                </div>
+              </div>
+              <div class="mb-2">
+                <span class="fw-semibold text-success" style="font-size: 1.1rem;">
+                  ₹{{ room.price | number:'1.0-2' }}
+                </span>
+              </div>
+              <span class="badge bg-success px-3 py-2 rounded-pill" style="font-size: 0.98rem;">
+                Available
+              </span>
+            </div>
+            <div class="card-footer bg-transparent border-0 pt-0 pb-3 d-flex flex-column gap-2">
+              <ng-container *ngIf="selectedRoomCode !== room.code">
+                <button class="btn btn-outline-primary btn-sm px-3" (click)="showGuestOptions(room, $event)">
+                  <i class="bi bi-calendar-plus me-1"></i>Book Room
+                </button>
+              </ng-container>
+              <ng-container *ngIf="selectedRoomCode === room.code">
+                <div class="d-flex flex-column gap-2">
+                  <button class="btn btn-outline-primary btn-sm px-3" (click)="selectGuest(room, $event)">
+                    <i class="bi bi-person-check me-1"></i>Select Guest
+                  </button>
+                  <button class="btn btn-outline-success btn-sm px-3" (click)="addGuest(room, $event)">
+                    <i class="bi bi-person-plus me-1"></i>Add Guest
+                  </button>
+                  <button class="btn btn-link btn-sm text-secondary px-3" (click)="cancelGuestOptions($event)">
+                    Cancel
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && roomsSearched && rooms.length === 0" class="alert alert-warning rounded-4 shadow-sm mt-3 text-center">
+        <i class="bi bi-exclamation-circle me-2"></i>
+        <span class="fw-semibold">No rooms are available for selected dates.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+.room-card {
+  background: #f8fafc;
+  border-radius: 1.25rem;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.room-card:hover {
+  box-shadow: 0 8px 32px rgba(26,35,126,0.10);
+  transform: translateY(-2px) scale(1.01);
+}
+.room-number-circle {
+  width: 44px;
+  height: 44px;
+  background: #e3f2fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+}
+.card {
+  border-radius: 1.25rem;
+  border: none;
+}
+h2, .text-muted {
+  text-align: left !important;
+}
+</style>

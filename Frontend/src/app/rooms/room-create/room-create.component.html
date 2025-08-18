@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="card shadow-sm border-0 rounded-4 p-4 mx-auto" style="max-width: 500px;">
+    <h2 class="mb-4 text-primary fw-bold text-center">
+      <i class="bi bi-door-closed me-2"></i>Create New Rooms
+    </h2>
+
+    <form [formGroup]="roomForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Room Code -->
+      <div class="mb-3">
+        <label for="code" class="form-label">Room Code</label>
+        <input type="text" id="code" class="form-control shadow-sm" formControlName="code" placeholder="Enter room code" />
+        <div class="text-danger small" *ngIf="roomForm.get('code')?.touched && roomForm.get('code')?.invalid">
+          Room code is required.
+        </div>
+      </div>
+
+      <!-- Room Type -->
+      <div class="mb-3">
+        <label for="roomType" class="form-label">Room Type</label>
+        <select id="roomType" class="form-select shadow-sm" formControlName="roomType">
+          <option value="" disabled>Select room type</option>
+          <option *ngFor="let type of roomTypes" [value]="type">{{ type }}</option>
+        </select>
+        <div class="text-danger small" *ngIf="roomForm.get('roomType')?.touched && roomForm.get('roomType')?.invalid">
+          Room type is required.
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (₹)</label>
+        <input type="number" id="price" class="form-control shadow-sm" formControlName="price" placeholder="Enter price" min="0" />
+        <div class="text-danger small" *ngIf="roomForm.get('price')?.touched && roomForm.get('price')?.invalid">
+          Price is required and must be ≥ 0.
+        </div>
+      </div>
+
+      <!-- Capacity -->
+      <div class="mb-3">
+        <label for="capacity" class="form-label">Capacity</label>
+        <input type="number" id="capacity" class="form-control shadow-sm" formControlName="capacity" placeholder="Enter capacity" min="1" />
+        <div class="text-danger small" *ngIf="roomForm.get('capacity')?.touched && roomForm.get('capacity')?.invalid">
+          Capacity is required and must be ≥ 1.
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="mb-4">
+        <label for="status" class="form-label">Status</label>
+        <select id="status" class="form-select shadow-sm" formControlName="status">
+          <option value="" disabled>Select status</option>
+          <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+        </select>
+        <div class="text-danger small" *ngIf="roomForm.get('status')?.touched && roomForm.get('status')?.invalid">
+          Status is required.
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary w-100 fw-semibold py-2" [disabled]="roomForm.invalid">
+        <i class="bi bi-plus-circle me-1"></i>Create Room
+      </button>
+    </form>
+  </div>
+</div>

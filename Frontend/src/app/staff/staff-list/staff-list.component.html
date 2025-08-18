@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary fw-bold mb-0">
+      <i class="bi bi-people-fill me-2"></i>Staff Members
+    </h2>
+    <!-- Search by Staff Code -->
+    <div class="d-flex">
+      <input
+        type="text"
+        class="form-control me-2"
+        placeholder="Enter Staff Code"
+        [(ngModel)]="searchCode"
+        style="max-width: 200px"
+      />
+      <button
+        class="btn btn-primary"
+        (click)="searchByCode()"
+      >
+        <i class="bi bi-search me-1"></i>Search
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <div class="mt-2 text-muted">Loading staff...</div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center rounded-4 shadow-sm">
+    {{ error }}
+  </div>
+
+  <div class="table-responsive shadow-sm rounded-4" *ngIf="!loading && !error && staffList.length">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-primary">
+        <tr>
+          <th>Staff Id</th>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>NIC</th>
+          <th>Email</th>
+          <th>Occupation</th>
+          <th>Age</th>
+          <th>Salary</th>
+          <th *ngIf="role === 'OWNER'" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let staff of staffList; index as i">
+          <td class="fw-semibold">{{ i + 1 }}</td>
+          <td>{{ staff.code }}</td>
+          <td>{{ staff.name }}</td>
+          <td>{{ staff.address }}</td>
+          <td>{{ staff.nic }}</td>
+          <td>{{ staff.email }}</td>
+          <td>
+            <span class="badge bg-info text-dark px-3 py-2 rounded-pill">
+              {{ staff.occupation }}
+            </span>
+          </td>
+          <td>{{ staff.age }}</td>
+          <td>
+            <span class="fw-semibold text-success">
+              ₹{{ staff.salary | number:'1.0-2' }}
+            </span>
+          </td>
+          <td *ngIf="role === 'OWNER'" class="text-center">
+            <button class="btn btn-sm btn-outline-primary me-2"
+                    (click)="editStaff(staff.id)">
+              <i class="bi bi-pencil-square"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-outline-danger"
+                    (click)="deleteStaff(staff.id)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && !error && !staffList.length" class="alert alert-warning text-center rounded-4 shadow-sm">
+    No staff members found.
+  </div>
+</div>

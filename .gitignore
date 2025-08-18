@@ -1,0 +1,38 @@
+# ──────────────────────────────
+# Java / Maven / Gradle (backend)
+# ──────────────────────────────
+**/target/
+**/build/
+**/.gradle/
+**/out/
+**/.mvn/wrapper/maven-wrapper.jar
+**/gradle/wrapper/gradle-wrapper.jar
+*.jar
+*.war
+*.iml
+.idea/
+*.classpath
+*.project
+.settings/
+bin/
+
+# ──────────────────────────────
+# Node / Angular (frontend)
+# ──────────────────────────────
+**/node_modules/
+**/dist/
+**/coverage/
+**/.angular/
+**/.nyc_output/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ──────────────────────────────
+# OS & misc
+# ──────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.env
+*.tmp

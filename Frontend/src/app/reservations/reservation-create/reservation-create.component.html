@@ -1,0 +1,44 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-sm border-0 p-4" style="width: 100%; max-width: 500px;">
+    <div class="text-center mb-4">
+      <div class="icon-circle mb-2" style="background: #e3f2fd;">
+        <i class="bi bi-calendar2-plus" style="color: #1976d2; font-size: 2rem;"></i>
+      </div>
+      <h3 class="fw-bold mb-0" style="color: #1a237e;">Create Reservation</h3>
+    </div>
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" *ngIf="!reservationCreated">
+      <div class="mb-3">
+        <label for="roomCode" class="form-label">Room Code</label>
+        <input type="text" id="roomCode" class="form-control" formControlName="roomCode" required />
+      </div>
+      <div class="mb-3">
+        <label for="guestCode" class="form-label">Guest Code</label>
+        <input type="text" id="guestCode" class="form-control" formControlName="guestCode" required />
+      </div>
+      <div class="mb-3">
+        <label for="numberOfAdults" class="form-label">Number of Adults</label>
+        <input type="number" id="numberOfAdults" class="form-control" formControlName="numberOfAdults" required min="1" />
+      </div>
+      <div class="mb-3">
+        <label for="numberOfChildren" class="form-label">Number of Children</label>
+        <input type="number" id="numberOfChildren" class="form-control" formControlName="numberOfChildren" required min="0" />
+      </div>
+      <div class="mb-3">
+        <label for="checkInDate" class="form-label">Check-In Date</label>
+        <input type="date" id="checkInDate" class="form-control" formControlName="checkInDate" required />
+      </div>
+      <div class="mb-3">
+        <label for="checkOutDate" class="form-label">Check-Out Date</label>
+        <input type="date" id="checkOutDate" class="form-control" formControlName="checkOutDate" required />
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="reservationForm.invalid">
+        Create Reservation
+      </button>
+    </form>
+
+    <div *ngIf="reservationCreated" class="mt-4 text-center">
+      <h4 class="text-success mb-3">Reservation created successfully!</h4>
+      <button class="btn btn-success px-4" (click)="onCompletePayment()">Complete Payment</button>
+    </div>
+  </div>
+</div>

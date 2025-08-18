@@ -1,0 +1,42 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4 shadow-sm border-0" style="width: 100%; max-width: 400px;">
+    <div class="text-center mb-4">
+      <div class="icon-circle mb-2" style="background: #e3f2fd;">
+        <i class="bi bi-person-circle" style="color: #1976d2; font-size: 2.2rem;"></i>
+      </div>
+      <h3 class="fw-bold mb-0" style="color: #1a237e;">Login</h3>
+    </div>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          required
+          [(ngModel)]="authRequest.username"
+          name="username"
+          autocomplete="username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          required
+          [(ngModel)]="authRequest.password"
+          name="password"
+          autocomplete="current-password"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+        Login
+      </button>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

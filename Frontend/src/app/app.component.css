@@ -1,0 +1,11 @@
+@media print {
+  nav,
+  .navbar,
+  app-navigation-bar,
+  .navigation-bar,
+  .navbar-expand-lg,
+  .navbar-dark,
+  .navbar-primary {
+    display: none !important;
+  }
+}
