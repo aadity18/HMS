@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "rabbitmq.queue",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.queue'"
+  },
+  {
+    "name": "rabbitmq.exchange",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.exchange'"
+  },
+  {
+    "name": "rabbitmq.username",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.username'"
+  },
+  {
+    "name": "rabbitmq.password",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.password'"
+  },
+  {
+    "name": "rabbitmq.host",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.host'"
+  },
+  {
+    "name": "rabbitmq.routingkey",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.routingkey'"
+  },
+  {
+    "name": "rabbitmq.port",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.port'"
+  }
+]}
