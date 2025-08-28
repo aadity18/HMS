@@ -1,11 +1,14 @@
 package com.example.auth_service.service;
 
-import com.example.auth_service.model.UserCredential;
-import com.example.auth_service.repository.UserCredentialRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.hms.auth.model.UserCredential;
+import com.hms.auth.repository.UserCredentialRepository;
+import com.hms.auth.service.AuthService;
+import com.hms.auth.service.JwtService;
 
 import java.util.Optional;
 

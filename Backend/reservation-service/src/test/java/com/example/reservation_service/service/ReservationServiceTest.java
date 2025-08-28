@@ -1,17 +1,22 @@
 package com.example.reservation_service.service;
 
-import com.example.reservation_service.dto.GuestDTO;
-import com.example.reservation_service.dto.ReservationStatusUpdateDTO;
-import com.example.reservation_service.dto.RoomDTO;
-import com.example.reservation_service.exception.*;
-import com.example.reservation_service.model.Reservation;
-import com.example.reservation_service.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.hms.reservation.dto.GuestDTO;
+import com.hms.reservation.dto.ReservationStatusUpdateDTO;
+import com.hms.reservation.dto.RoomDTO;
+import com.hms.reservation.exception.*;
+import com.hms.reservation.model.Reservation;
+import com.hms.reservation.repository.ReservationRepository;
+import com.hms.reservation.service.GuestServiceClient;
+import com.hms.reservation.service.NotificationPublisher;
+import com.hms.reservation.service.ReservationService;
+import com.hms.reservation.service.RoomServiceClient;
 
 import java.time.LocalDate;
 import java.util.List;
