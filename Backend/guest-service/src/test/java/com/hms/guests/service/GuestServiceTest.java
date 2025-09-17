@@ -37,10 +37,10 @@ class GuestServiceTest {
                 1L,
                 "G001",
                 "1234567890",
-                "Alice Smith",
-                "alice@mail.com",
-                "Female",
-                "123 Main St"
+                "Aditya Patil",
+                "adi@mail.com",
+                "Male",
+                "123 Main"
         );
     }
 

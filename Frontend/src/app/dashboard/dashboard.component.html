@@ -87,10 +87,23 @@
             <div class="icon-circle mb-3" style="background: #e8f5e9;">
               <i class="bi bi-door-closed" style="color: #388e3c; font-size: 1.7rem;"></i>
             </div>
-            <h6 class="fw-semibold mb-2" style="color: #388e3c;">Create Room</h6>
+            <h6 class="fw-semibold mb-2" style="color: #388e3c;">Add Room</h6>
             <button type="button" class="btn btn-success w-100" (click)="navigateTo('/rooms/create')">
-              <i class="bi bi-door-closed me-1"></i> Create Room
+              <i class="bi bi-door-closed me-1"></i> Add Room
             </button>
+          </div>
+        </div>
+                <!-- NEW: Add Staff card for MANAGER -->
+        <div class="col-12 col-md-3">
+          <div class="card action-card border-0 shadow-sm h-100 text-center p-4 rounded-4">
+            <div class="icon-circle mb-3" style="background: #ffebee;">
+              <i class="bi bi-person-plus-fill" style="color: #d32f2f; font-size: 1.7rem;"></i>
+            </div>
+            <h6 class="fw-semibold mb-2" style="color: #d32f2f;">Add Staff</h6>
+            <button type="button" class="btn btn-danger w-100" (click)="navigateTo('/staff/create')">
+              <i class="bi bi-person-plus-fill me-1"></i> Add Staff
+            </button>
+            <div class="small text-muted mt-2">Waiter, Cleaner, etc.</div>
           </div>
         </div>
         <div class="col-12 col-md-3">
@@ -104,7 +117,7 @@
             </button>
           </div>
         </div>
-        <!-- Removed Add Guest card -->
+
       </div>
     </div>
   </div>
@@ -125,7 +138,6 @@
             </button>
           </div>
         </div>
-        <!-- Removed Add Guest card -->
       </div>
     </div>
   </div>

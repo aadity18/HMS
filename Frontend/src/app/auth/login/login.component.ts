@@ -24,7 +24,7 @@ export class LoginComponent {
         console.log('Login success, token:', token);
         localStorage.setItem('token', token);
         const decodedToken: any = jwtDecode(token);
-        const role = decodedToken.role; // assuming the role claim key is 'role'
+        const role = decodedToken.role;
         localStorage.setItem('userRole', role);
         this.router.navigate(['/dashboard']);
       },

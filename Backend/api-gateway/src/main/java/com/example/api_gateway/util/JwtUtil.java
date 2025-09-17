@@ -75,14 +75,14 @@ public class JwtUtil {
     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
     public String validateAndExtractRole(final String token) {
-        // Validate the token and extract the 'role' claim in one method
+        
         try {
             String role = Jwts.parserBuilder()
                     .setSigningKey(getSignKey())
                     .build()
                     .parseClaimsJws(token)
                     .getBody()
-                    .get("role", String.class); // Extract the 'role' claim from the token
+                    .get("role", String.class); 
             
             return role;
         } catch (Exception e) {

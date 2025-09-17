@@ -1,0 +1,32 @@
+1.hello everyone and bit explaination about project around 15-20 sec includes angular springboot fullstack
+2.architecure diagram with explaination starts with api gateway then authentication then code display with ex[lamination also include independent and scalability point 45-50 sec
+3.login page then jwt explain with code also show frontend role base routes 35-40 sec
+4.explain about room page then reservation then RabbitMQ 50-55 sec
+5.show payment successs frontend code part with explain 20-25 sec
+6.Swagger explain 10 sec
+7.Exception explain 5-10 sec
+8.testing backend frontend both 10-15 sec
+9.circuit breaker explain 10 sec
+10.sonar cube 5-10 sec
+11.gen ai explain 5-10 sec
+12.future update to do likst 5-10 sec Thank you
+
+
+
+1.Hello everyone, today I’ll be showing my Hotel Management System project. It’s a full-stack application built with Angular and Spring Boot, made for hotel staff to manage daily operations. This is an internal system, not for public use. Let’s get started with the demo.
+
+2.All requests go through the API Gateway, which handles authentication and routes the request to the correct microservice. Each service is registered in Eureka for discovery and load balancing, making them independent and easy to scale. Authentication is fully centralized through the Auth Service using JWT tokens, which keeps the system secure and easy to manage
+
+3.This is the login page. When I click login, the backend creates a JWT token with the user’s role. The JwtUtil class generates and validates this token. On the frontend, the LoginComponent calls the Auth Service, saves the token in local storage, reads the user’s role, and then redirects to the dashboard based on that role.
+
+4.**“These menu options — Dashboard, Rooms, Reservations, Guests, and Billing — are common for all roles. Whether the user is an Admin, Manager, or Staff, they will always see this navigation bar.
+On the Owner dashboard, we have some extra options that only the Owner can use. For example, the Owner can add new users to the system, such as managers or receptionists. Both the Owner and Manager can add and view staff, like waiters or cleaners. They also get access to reports for better control of the business.”**
+
+On the Manager dashboard, only the Manager has the rights to add new rooms or update existing rooms. For example, they can change room status or adjust prices during different seasons.
+
+On the Receptionist dashboard, both the Manager and Receptionist can create reservations. Let’s go through the full reservation process
+
+**“To create a reservation, we first check available rooms by entering check-in and check-out dates. The system shows all available rooms, and after clicking Book Room, we get two options: Add Guest or Select Guest. If it’s an existing guest, we just search by phone number, and their details are auto-filled in the form. We only need to enter the number of adults and children, then click Create Reservation.
+
+Once the reservation is created, we see a success message, and the status is Pending Payment. There’s a Payment button, which opens the Razorpay dashboard. After successful payment, the status updates to Booked. Meanwhile, RabbitMQ ensures an email confirmation is sent asynchronously to the guest’s email ID.”**
+
