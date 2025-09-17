@@ -1,4 +1,4 @@
 export class AuthRequest {
-  username: string = '';
+  email: string = '';
   password: string = '';
 }

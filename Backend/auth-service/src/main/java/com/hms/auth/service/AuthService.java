@@ -15,7 +15,6 @@ public class AuthService {
     private UserCredentialRepository repository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private JwtService jwtService;
 
@@ -24,21 +23,18 @@ public class AuthService {
         repository.save(credential);
         return "user added to the system";
     }
-    
-    public String getUserRole(String username) {
-  
-        UserCredential user = repository.findByName(username)
+
+    public String getUserRole(String email) {
+        UserCredential user = repository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getRole(); 
+        return user.getRole();
     }
 
-    public String generateToken(String username,String role) {
-        return jwtService.generateToken(username,role);
+    public String generateToken(String email, String role) {
+        return jwtService.generateToken(email, role);
     }
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
     }
-
-
 }

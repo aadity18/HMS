@@ -36,7 +36,7 @@ class AuthServiceTest {
     @Test
     void testSaveUser() {
         UserCredential user = new UserCredential();
-        user.setName("john");
+        user.setEmail("john@example.com");
         user.setPassword("password");
 
         when(passwordEncoder.encode("password")).thenReturn("encodedPass");
@@ -52,34 +52,34 @@ class AuthServiceTest {
     @Test
     void testGetUserRole_Success() {
         UserCredential user = new UserCredential();
-        user.setName("john");
+        user.setEmail("john@example.com");
         user.setRole("ADMIN");
 
-        when(repository.findByName("john")).thenReturn(Optional.of(user));
+        when(repository.findByEmail("john@example.com")).thenReturn(Optional.of(user));
 
-        String role = authService.getUserRole("john");
+        String role = authService.getUserRole("john@example.com");
 
         assertEquals("ADMIN", role);
     }
 
     @Test
     void testGetUserRole_UserNotFound() {
-        when(repository.findByName("jane")).thenReturn(Optional.empty());
+        when(repository.findByEmail("jane@example.com")).thenReturn(Optional.empty());
 
         RuntimeException exception = assertThrows(RuntimeException.class,
-                () -> authService.getUserRole("jane"));
+                () -> authService.getUserRole("jane@example.com"));
 
         assertEquals("User not found", exception.getMessage());
     }
 
     @Test
     void testGenerateToken() {
-        when(jwtService.generateToken("john", "ADMIN")).thenReturn("fakeToken");
+        when(jwtService.generateToken("john@example.com", "ADMIN")).thenReturn("fakeToken");
 
-        String token = authService.generateToken("john", "ADMIN");
+        String token = authService.generateToken("john@example.com", "ADMIN");
 
         assertEquals("fakeToken", token);
-        verify(jwtService, times(1)).generateToken("john", "ADMIN");
+        verify(jwtService, times(1)).generateToken("john@example.com", "ADMIN");
     }
 
     @Test

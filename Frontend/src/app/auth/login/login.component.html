@@ -8,15 +8,15 @@
     </div>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
+        <label for="email" class="form-label">Email</label>
         <input
-          type="text"
-          id="username"
+          type="email"
+          id="email"
           class="form-control"
           required
-          [(ngModel)]="authRequest.username"
-          name="username"
-          autocomplete="username"
+          [(ngModel)]="authRequest.email"
+          name="email"
+          autocomplete="email"
         />
       </div>
       <div class="mb-3">

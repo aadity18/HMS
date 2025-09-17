@@ -1,6 +1,5 @@
 package com.hms.auth.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +13,7 @@ import com.hms.auth.service.AuthService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
     @Autowired
     private AuthService service;
 
@@ -27,12 +27,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public String getToken(@RequestBody AuthRequest authRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        
         if (authenticate.isAuthenticated()) {
-        	String role = service.getUserRole(authRequest.getUsername());
-            return service.generateToken(authRequest.getUsername(),role);
+            String role = service.getUserRole(authRequest.getEmail());
+            return service.generateToken(authRequest.getEmail(), role);
         } else {
-            throw new RuntimeException("invalid access");
+            throw new RuntimeException("Invalid access");
         }
     }
 

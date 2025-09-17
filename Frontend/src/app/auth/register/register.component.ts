@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { User } from '../models/user.model';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     // Only allow OWNER to access this page
     const role = localStorage.getItem('userRole');
     if (role !== 'OWNER') {
-      alert("Only Owner Can Add Users");
+      alert('Only Owner Can Add Users');
       this.router.navigate(['/']);
     }
   }
@@ -30,11 +30,11 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.user).subscribe({
       next: (res) => {
-        this.message = res;  
+        this.message = res;
         this.errorMessage = '';
-        this.user = new User();
+        this.user = new User(); // reset form
       },
-      error: (err) => {
+      error: () => {
         this.errorMessage = 'Registration failed.';
         this.message = '';
       },

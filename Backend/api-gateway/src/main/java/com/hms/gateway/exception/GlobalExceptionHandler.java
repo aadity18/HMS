@@ -1,4 +1,4 @@
-package com.example.api_gateway.exception;
+package com.hms.gateway.exception;
 
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.annotation.Order;
